@@ -1,17 +1,18 @@
-$(document).ready(function() {
-	$("#testAPI").on("click", function() {
-			console.log("it is working");
+$(function(){
+	$("#testAPI").on("click", function(){
+		console.log("it is working");
 	});
 
+// test will be connecting the client (local host 8080) to the server (local host 3000) to be able to communicate
 	var test = $.ajax({
-			type: "GET",
-			url:  "http//localhost:3000/api/test"
+		type	: "GET",
+		url		: "http://localhost:3000/api/test"
 	});
 	test.done(function(data){
-			console.log(data);
+		console.log(data);
 	});
-
-	test.fall(function(){
+	test.fail(function(){
 		console.log("oh no!");
 	});
+
 });
