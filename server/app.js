@@ -1,3 +1,5 @@
+var sequelize = require('./db.js')
+
 //the first variable, is importing the express module.
 var express =require('express');
 //then, it is calling express function in the app variable.
@@ -6,6 +8,8 @@ var app = express();
 //various express functions that build a server
 
 var bodyParser = require('body-parser');
+var sequelize = require('./db');
+var User = sequelize.import('./models/user');
 
 //header request for middleware
 app.use(require('./middleware/header'));
@@ -20,30 +24,8 @@ app.listen(3000,function(){
 		console.log("app is listening on 3000");
 });
 
-//setting up a connection
-var Sequelize = require('sequelize');
-var sequelize = new Sequelize('workoutlog', 'postgres', 'bandaid4', {
-	host: 'localhost',
-	dialect: 'postgres'
-
-});
-
-sequelize.authenticate().then(
-		function() {
-				console.log('connected to workoutlog postgres db');
-			},
-			function(err){
-				console.log(err);
-			}
-);
 //data model, username & pass, model.table and 'user' represents the table	
 
-//a sequelize method, for the above user object.
-var User = sequelize.define('user', {
-			username: Sequelize.STRING,
-			passwordhash: Sequelize.STRING
-
-	});
 
 User.sync();
 
