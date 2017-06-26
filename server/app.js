@@ -34,3 +34,6 @@ User.sync();
 //User.sync({force: true});
 app.use(bodyParser.json());
 
+//login route
+app.use('/api/login', require('./routes/session'));
+
