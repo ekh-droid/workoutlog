@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var sequelize = require('./db.js')
 
 //the first variable, is importing the express module.
@@ -13,6 +15,7 @@ var User = sequelize.import(__dirname + '\\models\\user');
 
 //header request for middleware
 app.use(require('./middleware/header'));
+app.use(require('./middleware/validate-session'));
 
 app.use("/api/test", function(req, res) {
 	res.send("Hello World");
