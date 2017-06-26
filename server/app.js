@@ -9,7 +9,7 @@ var app = express();
 
 var bodyParser = require('body-parser');
 var sequelize = require('./db');
-var User = sequelize.import('./models/user');
+var User = sequelize.import(__dirname + '\\models\\user');
 
 //header request for middleware
 app.use(require('./middleware/header'));
@@ -34,24 +34,3 @@ User.sync();
 //User.sync({force: true});
 app.use(bodyParser.json());
 
-app.post('/api/user', function(req, res){
-	var username = req.body.user.username;
-	var pass = req.body.user.password;
-	//need to create a user object and use sequelize to put that user itno
-
-User.create({
-		username: username,
-		passwordhash: pass
-}).then(
-
-			function createSuccess(user){
-				res.json({
-						user: user,
-						message:'u made an account pal'
-				});
-			},
-			function createError(err){
-					res.send(500, err.message);
-			}
-	);		
-});
