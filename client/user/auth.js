@@ -14,24 +14,26 @@ $(function(){
 				};
 			}
 
-			//signup post
+	//signup post
 			var signup = $.ajax({
 					type: "POST",
 					url: WorkoutLog.API_BASE + "user",
 					data: JSON.stringify( user ),
 					contentType: "application/json"
 			});
-
-			//signup done/fail
+	//signup done/fail
 			signup.done(function(data) {
 				if(data.sessionToken) {
 						WorkoutLog.setAuthHeader(data.sessionToken);
+						console.log("welcome to the cult");
+						console.log(data.sessionToken);
 
 				}
 
 				$("#signup-modal").modal("hide");
 				$(".disabled").removeClass("disabled");
 				$("#loginout").text("Logout");
+				console.log("a new account has been created");
 
 			}).fail(function() {
 				$("#su_error").text("There was an issue with sign up").show();
