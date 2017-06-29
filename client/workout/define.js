@@ -1,26 +1,26 @@
 $(document).ready(function(){
-	$.extend(Workoutlog, {
+	$.extend(WorkoutLog, {
 		definition: {
 			userDefinition : [],
 
 			create: function(){
 					var def = {
-						desc: , $("#def-description").val(),
+						desc: $("#def-description").val(),
 						type: $("#def-logtype").val()
 					}
 
 					var postData = { definition: def};
 
 					var define = $.ajax({
-						type: "POST"
-						url: Workout.API_BASE + "definition",
+						type: "POST",
+						url: WorkoutLog.API_BASE + "definition",
 						data: JSON.stringify(postData),
 						contentType: "application/json"
 
 					})
 
 					define.done(function(data){
-						Workoutlog.definition.userDefinition.push(data.definition)
+						WorkoutLog.definition.userDefinition.push(data.definition)
 					})
 
 
@@ -28,12 +28,12 @@ $(document).ready(function(){
 
 			fetchAll: function(){
 				if( window.localStorage.getItem("sessionToken")){
-					Workoutlog.definition.fetchAll();
+					WorkoutLog.definition.fetchAll();
 				}
 
 			}
 		}
 	})
 
-	$("#def-save").on('click', Workoutlog.definition.create);
+	$("#def-save").on('click', WorkoutLog.definition.create);
 })
