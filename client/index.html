@@ -84,15 +84,32 @@
 		      </div>
 		     </div>
 		    </div>
+<!--define-->
+		     <div class="tab-pane" id="define">
+	 	        <h2>Define</h2>
+	 	          <label for="def-description">Description</label>
+	 	          <textarea class="form-control" id="def-description" rows="3" ></textarea>
+	 	          <label for="def-logtype">Log work by</label>
+	 	          <select class="form-control" id="def-logtype">
+	 	            <option>Time</option>
+	 	            <option>Weight</option>
+	 	            <option>Reps</option>
+	 	          </select>
+	 	          <div id="define-success" class="success1">You added new category!</div>
+	 	          <div id="define-fail" class="fail">Failed to add new category</div>
+	 	          <br>
+	 	          <button id="def-save" class="btn btn-primary">Save</button>
+	 	      </div>
 
-
-<!--scripts-->
-		  	<script src="./bower_components/jquery/dist/jquery.min.js"></script>
 <!--complied plugginnns-->
 		<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="./bower_components/jquery/dist/jquery.min.js"></script>
 
+<!--scripts-->
 		<script src="./app.js"></script>
-		    <script src="./user/auth.js"></script>
-	
+		<script src="./user/auth.js"></script>
+		<script src="./workouts/define.js"></script>
+
+
 		</body>
 </html>
