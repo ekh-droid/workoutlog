@@ -1,11 +1,11 @@
-$(function() {
+$(document).ready(function() {
 
 	var WorkoutLog = (function($, undefined){
 		var API_BASE = "http://localhost:3000/api/";
 		var userDefinitions = [];
 
-		var setAuthHeder = function(sessionToken) {
-			window.localStorafe.setItem("sessionToken", sessionToken);
+		var setAuthHeader = function(sessionToken) {
+			window.localStorage.setItem("sessionToken", sessionToken);
 			//set the authorization header
 			// this can be done on individual calls
 			// here we showcase ajaxsetup as a global took
@@ -46,7 +46,7 @@ $(function() {
 		}
 	});
 
-	//blind enter key
+	//blind enter key, //=== 13 is a keypress function
 	$(document).on("keypress", function(e) {
 		if (e.which === 13) { //enter key
 			if ($("#signup-modal").is("visible")) {
@@ -58,8 +58,8 @@ $(function() {
 		}
 	});
 
-	//setHeader if we
-	var token = window.localStorge.getItem("sessionToken");
+	//stores the token in the setAuthHeader
+	var token = window.localStorage.getItem("sessionToken");
 	if (token) {
 			WorkoutLog.setAuthHeader(token);
 	}

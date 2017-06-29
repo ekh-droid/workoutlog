@@ -7,35 +7,43 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"> 
 
 	<title>Workout Log</title>
-<!--boots-->
-	<link href="./bower_components/bootstrap/dist/css/bootsrap.min.css" rel="stylesheet">
+	<!--boots-->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
 
 </head>
 
-<body>
-	<ul class="nav nav-tabs">
-	<li><a href="#home" id="loginout" class="disabled" data-toggle="tab">login</a>
-		<li class="active"><a href="#home" data-toggle="tab">Home</a></li>
-		<li><a href="#define" data-toggle="tab">Define</a></li>
-		<li><a href="#log" data-toggle="tab">Log</a></li>
-		<li><a href="#history" data-toggle="tab">View History</a></li>
+		<body>
+				<ul class="nav nav-tabs">
+				<!--login button, does not log out - fix this -->
+				<li><a href="#home" id="loginout" class="disabled" data-toggle="tab">login</a>
+					<li class="active"><a href="#home" data-toggle="tab">Home</a></li>
+					<li><a href="#define" data-toggle="tab">Define</a></li>
+					<li><a href="#log" data-toggle="tab">Log</a></li>
+					<li><a href="#history" data-toggle="tab">View History</a></li>
 
-	</ul>
+				</ul>
 
 	<div class="container">
 		<div class="tab-content">
 			<div class="tab-pane active" id="home">
 				<h2>log your work outs</h2>
+				<div id="forLogin">
+					<button data-toggle="modal" data-target="#login-modal" class="btn btn-primary">login</button>
+					<button data-toggle="modal" data-target="#signup-modal" class="btn btn-primary">sign up</button>
+					<div id="forLogout" style="display:none;">
+					<button class="btn btn-primary">logout</button>
+				</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="modal fade" id="login-modal" role="dialog">
+	<div class="modal fade" id="login-modal" role="dialog" style="border: solid 3px black">
 	  <div class="modal-dialog">
 		<div class="modal-content">
 		<div class="modal-header">
 		  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-		  <h4 class="modal-title">login></h4>
+		  <h4 class="modal-title">login</h4>
 		  </div>
 		  <div class="modal-body">
 		  <div class="alert alert-danger" style="display: none;" role="alert" id="li_error"></div>
@@ -45,8 +53,8 @@
 		  <input type="password" id="li_password"/>
 		  </div>
 		  <div class="modal-footer">
-		  	<button type="button" class vtn vtn-default"
-		  data-dismiss="modal">cancel</button>
+		  	<button type="button" class="btn btn-default"
+		       data-dismiss="modal">cancel</button>
 		  	<button id="login" type="button" class="btn btn-primary">login</button>
 		  </div>
 		 </div>
@@ -78,12 +86,13 @@
 		    </div>
 
 
-
-		    <script src="./app.js"></script>
-		    <script src="./user/auth.js"></script>
+<!--scripts-->
 		  	<script src="./bower_components/jquery/dist/jquery.min.js"></script>
 <!--complied plugginnns-->
-	<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+		<script src="./bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+		<script src="./app.js"></script>
+		    <script src="./user/auth.js"></script>
 	
-</body>
+		</body>
 </html>

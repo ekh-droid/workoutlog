@@ -12,7 +12,7 @@ $(function(){
 								password: password
 						}
 				};
-			}
+			
 
 	//signup post
 			var signup = $.ajax({
@@ -38,10 +38,55 @@ $(function(){
 			}).fail(function() {
 				$("#su_error").text("There was an issue with sign up").show();
 			});
+		},
+
+		login : function(){
+			var username = $("su_username").val();
+			var password = $("su_password").val();
+
+			var user = {
+				user : {
+					username: username,
+					password: password
+
+				}
+			}
+
+			var login = $.ajax({
+				type: "POST",
+				url: WorkoutLog.API_BASE + "login",
+				data: JSON.stringify(user),
+				contentType: "application/json"
+			})
+
+			login.done(function(data){
+				if(data.sessionToken){
+					WorkoutLog.setAuthHeader(data.sessionToken)
+				}
+
+			$("#login-modal").modal("hide")
+			$(".disabled").removeClass("disabled");
+			$("#loginout").text("Logout")
+			}).fail(function(){
+				$("#li_error").text("there was a problem with signing up!").show();
+			})
+		},
+		//property to log out user, then after logining out returns the logging in function
+		logout: function(){
+			if(window.localStorage.getItem("sessionToken")){
+					window.localStorage.removeItem("sessionToken")
+					$("#logininout").text("Login")
+			}
 		}
 
-	}); //end workout log
-		$("#signup").on("click", WorkoutLog.signup);
 
+	}); //end workout log
+	$("#signup").on("click", WorkoutLog.signup);
+	$("login").on('click', WorkoutLog.login);
+	$("#loginout").on('click', WorkoutLog.logout);
+
+	if(window.localStorage.getItem("sessionToken")){
+		$("#loginout").text("Logout");
+	}
 });//end outside function
 
