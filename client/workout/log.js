@@ -4,10 +4,10 @@ $(function() {
             workouts: [],
 
             setDefinitions: function() {
-                var defs = WorkoutLog.definition.userDefinitions;
-                var len = defs.length;
+                var defs = WorkoutLog.definition.userDefinition;
+                var length = defs.length;
                 var opts;
-                for (var i = 0; i < len; i++) {
+                for (var i = 0; i < length; i++) {
                     opts += "<option value='" + defs[i].id + "'>" + defs[i].description + "</option>";
                 }
                 $("#log-definition").children().remove();
@@ -18,26 +18,27 @@ $(function() {
                 var history = WorkoutLog.log.workouts;
                 var len = history.length;
                 var lis = "";
-                // for (var i = 0; i < len; i++) {
-                //     lis += "<li class='list-group-item'>" + history[i].def + " - " + history[i].result + "</li>";
-                // }
-                for (var i = 0; i < len; i++) {
-                    lis += "<li class='list-group-item'>" +
+            
+             for (var i = 0; i < len; i++) {
+                lis += "<li class='list-group-item'>" + history[i].def + " - " + history[i].result + "</li>";
+                }
+            //  for (var i = 0; i < len; i++) {
+            //      lis += "<li class='list-group-item'>" +
                         // history[i].id + " - " +
-                        history[i].def + " - " +
-                        history[i].result + " " +
+            //           history[i].def + " - " +
+            //          history[i].result + " " +
                         // pass the log.id into the button's id attribute // watch your quotes!
                         "<div class='pull-right'>" +
                         "<button id='" + history[i].id + "' class='update btn btn-primary'><strong>Update</strong></button>" +
                         "<button id='" + history[i].id + "' class='remove btn btn-primary'><strong>Delete</strong></button>" +
                         "</div></li>";
-                }
+                
                 $("#history-list").children().remove();
                 $("#history-list").append(lis);
             },
             create: function() {
                 var itsLog = {
-                    desc: $("#log-description").val(),
+                    description: $("#log-description").val(),
                     result: $("#log-result").val(),
                     def: $("#log-definition option:selected").text()
                 };
@@ -161,7 +162,7 @@ $(function() {
     $("#history-list").delegate('.update', 'click', WorkoutLog.log.getWorkout);
     $("#history-list").delegate('.remove', 'click', WorkoutLog.log.delete);
 
-    // fetch history if we already are authenticated and refreshed
+ 
     if (window.localStorage.getItem("sessionToken")) {
         WorkoutLog.log.fetchAll();
     }
