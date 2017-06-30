@@ -20,18 +20,16 @@ $(function() {
                 var lis = "";
             
              for (var i = 0; i < len; i++) {
-                lis += "<li class='list-group-item'>" + history[i].def + " - " + history[i].result + "</li>";
+                lis += "<li class='list-group-item'>" + history[i].def + " - " + history[i].result + "</li>"
+                + "<div class ='pull-right'>" + "<button id='"+ history[i].id+ "' class='remove'><strong>X</strong></button>" +"</div</li>"
                 }
             //  for (var i = 0; i < len; i++) {
-            //      lis += "<li class='list-group-item'>" +
+            //      liSs += "<li class='list-group-item'>" +
                         // history[i].id + " - " +
             //           history[i].def + " - " +
             //          history[i].result + " " +
                         // pass the log.id into the button's id attribute // watch your quotes!
-                        "<div class='pull-right'>" +
-                        "<button id='" + history[i].id + "' class='update btn btn-primary'><strong>Update</strong></button>" +
-                        "<button id='" + history[i].id + "' class='remove btn btn-primary'><strong>Delete</strong></button>" +
-                        "</div></li>";
+                      
                 
                 $("#history-list").children().remove();
                 $("#history-list").append(lis);
@@ -115,13 +113,29 @@ $(function() {
                     $('a[href="#history"]').tab("show");
                 });
             },
-            delete: function() {
+           
+            },
+            fetchAll: function() {
+                var fetchDefs = $.ajax({
+                        type: "GET",
+                        url: WorkoutLog.API_BASE + "log",
+                        headers: {
+                            "authorization": window.localStorage.getItem("sessionToken")
+                        }
+                    })
+                    fetchDefs.done(function(data) {
+                        WorkoutLog.log.workouts = data;
+                    })
+                    .fail(function(err) {
+                        console.log(err);
+                    })
+                },
+
+             delete: function() {
                 var thisLog = {
                     id: $(this).attr("id")
                 };
-                var deleteData = {
-                    log: thisLog
-                };
+                var deleteData = {log: thisLog };
                 var deleteLog = $.ajax({
                     type: "DELETE",
                     url: WorkoutLog.API_BASE + "log",
@@ -138,31 +152,12 @@ $(function() {
                 deleteLog.fail(function() {
                     console.log("nope, didn't get deleted.");
                 });
-            },
-            fetchAll: function() {
-                var fetchDefs = $.ajax({
-                        type: "GET",
-                        url: WorkoutLog.API_BASE + "log",
-                        headers: {
-                            "authorization": window.localStorage.getItem("sessionToken")
-                        }
-                    })
-                    .done(function(data) {
-                        WorkoutLog.log.workouts = data;
-                    })
-                    .fail(function(err) {
-                        console.log(err);
-                    });
             }
-        }
+        
     });
 
     $("#log-save").on("click", WorkoutLog.log.create);
-    $("#log-update").on("click", WorkoutLog.log.updateWorkout);
-    $("#history-list").delegate('.update', 'click', WorkoutLog.log.getWorkout);
     $("#history-list").delegate('.remove', 'click', WorkoutLog.log.delete);
-
- 
     if (window.localStorage.getItem("sessionToken")) {
         WorkoutLog.log.fetchAll();
     }
