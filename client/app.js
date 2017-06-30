@@ -25,46 +25,46 @@ $(document).ready(function() {
 			};
 	})(jQuery);
 
-	// ensure .disabled aren't clickable
-	$(".nav-tabs a[data-toggle=tab]").on("click", function(e) {
-		var token = window.localStorage.getItem("sessionToken");
-		if ($(this).hasClass("disabled") && !token) {
-			e.preventDefault();
-			return false;
-		}
-	});
+	 // Ensure .disabled aren't clickable
+   $(".nav-tabs a[data-toggle=tab]").on("click", function(e) {
+      var token = window.localStorage.getItem("sessionToken");
+      if ($(this).hasClass("disabled") && !token) {
+         e.preventDefault();
+         return false;
+      }
+   });
 
-	//bind tab change events
-	$('a[data-toggle="tab"]').on("click", function(e) {
-		var target = $(e.target).attr("href"); //activated tab
-		if (target === "#log") {
-			WorkoutLog.log.setDefinitions();
-		}
+   // bind tab change events
+   $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+      var target = $(e.target).attr("href"); // activated tab
+      if (target === "#log") {
+         WorkoutLog.log.setDefinitions();
+      }
+      if (target === "#update-log"){
+        WorkoutLog.log.setDefinitions();
+      }
+      if (target === "#history") {
+         WorkoutLog.log.setHistory();
+      }
+   });
 
-		if (target === "#history") {
-				WorkoutLog.log.setDefinitions();
-		}
-	});
+   // bind enter key
+   $(document).on("keypress", function(e) {
+      if (e.which === 13) { // enter key
+         if ($("#signup-modal").is(":visible")) {
+            $("#signup").trigger("click");
+         }
+         if ($("#login-modal").is(":visible")) {
+            $("#login").trigger("click");
+         }
+      }
+   });
+   // setHeader if we
+   var token = window.localStorage.getItem("sessionToken");
+   if (token) {
+      WorkoutLog.setAuthHeader(token);
+   }
 
-	//blind enter key, //=== 13 is a keypress function
-	$(document).on("keypress", function(e) {
-		if (e.which === 13) { //enter key
-			if ($("#signup-modal").is("visible")) {
-				$("#signup").trigger("click");
-			}
-			if ($("#login-modal").is("visibile")) {
-				$("#login").trigger("click");
-			}
-		}
-	});
-
-	//stores the token in the setAuthHeader
-	var token = window.localStorage.getItem("sessionToken");
-	if (token) {
-			WorkoutLog.setAuthHeader(token);
-	}
-
-	//expose this to the other workoutlog modules
-	window.WorkoutLog = WorkoutLog;
-
+   // expose this to the other workoutlog modules
+   window.WorkoutLog = WorkoutLog;
 });
